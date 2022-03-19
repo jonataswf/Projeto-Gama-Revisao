@@ -1,50 +1,44 @@
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class Sistema {
 
     public static void main(String[] args) {
 
-        String nome, conta;
-        int agencia, opcao;
+        String nome, strConta, strOpcao, strAgencia;
+        int conta, agencia, opcao;
         boolean menu = true;
-        String caminhoArquivo = "././././src/lista_clientes.txt";
+        String caminhoArquivo = "././././src/arquivo_clientes.txt";
 
-        Scanner sc = new Scanner(System.in);
         ArrayList<Clientes> clientes = new ArrayList<>();
         File arq = new File(caminhoArquivo);
         arq.delete();
 
         while (menu) {
 
-            System.out.println("-------Sistema Banco-------");
-            System.out.println("| 1 - Cadastrar Clientes  |");
-            System.out.println("| 2 - Listar Clientes     |");
-            System.out.println("| 3 - Gravar Arquivo      |");
-            System.out.println("| 4 - Consultar Arquivo   |");
-            System.out.println("| 5 - Sair                |");
-            System.out.println("---------------------------");
-            System.out.print("Digite a opção: ");
-
             try {
+                strOpcao = JOptionPane.showInputDialog(null, """
+                        Sistema Banco
+                        1 - Cadastrar Clientes
+                        2 - Listar Clientes
+                        3 - Gravar Arquivo
+                        4 - Consultar Arquivo
+                        5 - Sair
+                        """, "Cadastro", JOptionPane.QUESTION_MESSAGE);
 
-                opcao = sc.nextInt();
+                opcao = Integer.parseInt(strOpcao);
 
                 switch (opcao) {
 
                     case 1:
+                        nome = JOptionPane.showInputDialog("Digite o nome do cliente:");
 
-                        System.out.print("\nDigite o nome do cliente: ");
-                        nome = sc.next();
+                        strConta = JOptionPane.showInputDialog("Digite o numero da conta: ");
+                        conta = Integer.parseInt(strConta);
 
-                        System.out.print("Digite o numero da conta: ");
-                        conta = sc.next();
-
-                        System.out.print("Digite a agência: ");
-                        agencia = sc.nextInt();
+                        strAgencia = JOptionPane.showInputDialog("Digite o numero da agência: ");
+                        agencia = Integer.parseInt(strAgencia);
 
                         clientes.add(new Clientes(nome, conta, agencia));
 
@@ -53,10 +47,9 @@ public class Sistema {
 
                     case 2:
                         if (clientes.size() > 0) {
-                            System.out.println("\nLista de Clientes:");
-                            clientes.forEach(cli -> System.out.print(cli.toString()));
-                            System.out.println();
-                            JOptionPane.showMessageDialog(null, "Lista de Clientes:\n" + clientes.listIterator().next(), "Cadastro", JOptionPane.INFORMATION_MESSAGE);
+                            StringBuilder titulo = new StringBuilder("            LISTA DE CLIENTES \n");
+                            clientes.forEach(cli -> titulo.append(cli.toString()));
+                            JOptionPane.showMessageDialog(null, titulo.toString(), "Lista de Clientes", JOptionPane.INFORMATION_MESSAGE);
                             break;
                         }
                         JOptionPane.showMessageDialog(null, "Nenhum Cliente Cadastrado", "Lista Vazia", JOptionPane.INFORMATION_MESSAGE);
@@ -83,7 +76,7 @@ public class Sistema {
 
                     case 4:
                         if (arq.exists()) {
-                            StringBuilder titulo = new StringBuilder("             ARQUIVO DE CLIENTES: \n\n");
+                            StringBuilder titulo = new StringBuilder("           ARQUIVO DE CLIENTES:\n");
                             try {
                                 FileReader reader = new FileReader(caminhoArquivo);
                                 BufferedReader lerArquivo = new BufferedReader(reader);
@@ -97,7 +90,7 @@ public class Sistema {
                             }
                             JOptionPane.showMessageDialog(null, titulo.toString(), arq.getName(), JOptionPane.INFORMATION_MESSAGE);
                         } else {
-                            JOptionPane.showMessageDialog(null, "Arquivo não encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Arquivo não encontrado\ngrave primeiro (opcao3)", "Erro", JOptionPane.INFORMATION_MESSAGE);
                         }
                         break;
 
@@ -107,14 +100,10 @@ public class Sistema {
 
                     default:
                         JOptionPane.showMessageDialog(null, "Opção Inválida!", "Erro", JOptionPane.INFORMATION_MESSAGE);
-                        sc.nextLine();
                 }
-            } catch (InputMismatchException e) {
-                JOptionPane.showMessageDialog(null, "Caracter não permitido", "Erro", JOptionPane.ERROR_MESSAGE);
-                sc.nextLine();
+
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Erro" + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-                return;
             }
         }
     }

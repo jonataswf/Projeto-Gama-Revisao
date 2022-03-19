@@ -1,9 +1,10 @@
 public class Clientes {
 
-    private String nome, conta;
-    private int agencia;
+    private final String nome;
+    private final int conta;
+    private final int agencia;
 
-    public Clientes(String nome, String conta, int agencia) {
+    public Clientes(String nome, int conta, int agencia) {
         this.nome = nome;
         this.conta = conta;
         this.agencia = agencia;
@@ -16,27 +17,14 @@ public class Clientes {
                 " Agencia:" + agencia + "\n";
     }
 
-    public String getNome() {
-        return nome;
-    }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 
-    public String getConta() {
-        return conta;
-    }
 
-    public void setConta(String conta) {
-        this.conta = conta;
-    }
 
-    public int getAgencia() {
-        return agencia;
-    }
 
-    public void setAgencia(int agencia) {
-        this.agencia = agencia;
-    }
+
+
+
+
+
 }
