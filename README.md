@@ -41,4 +41,4 @@ Mostrar o retorno dos registros encontrados no arquivo.
 - ...
 
 ## TO DO:
-- Verificar como remover o botao cancelar  e is botões superiores do JOptionPane
+- Verificar como remover o botao cancelar e os botões superiores do JOptionPane
