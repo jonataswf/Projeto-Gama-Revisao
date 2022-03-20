@@ -21,12 +21,12 @@ public class Clientes {
 
     @Override
     public String toString() {
-        DecimalFormat dc = new DecimalFormat("#.##");
+        DecimalFormat dc = new DecimalFormat("R$ #,###.00");
         return "Nome: " + nome +
                 " Conta: " + conta +
                 " Agencia:" + agencia +
                 " Email: " + email +
                 " Telefone: " + telefone +
-                " Saldo: R$ " + dc.format(saldo) + "\n";
+                " Saldo: " + dc.format(saldo) + "\n";
     }
 }
